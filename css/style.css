@@ -1,0 +1,139 @@
+:root {
+  --first-bg-color: white;
+  --second-bg-color: black;
+  --margin-top:20px;
+}
+.box {
+  color:black;
+  padding: 20px;
+  font-size: 150%;
+  height: 25px;
+  border-style: solid;
+  border-color: black;
+  border-width: 0.5px;
+
+}
+.stone {
+    display: block;
+    background: var(--second-bg-color);
+}
+.playerOne {
+    border-radius: 50%;
+    background-image: url("../images/haste-fire-3.png");
+    background-position: center;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.playerTwo {
+    border-radius: 50%;
+    background-image: url("../images/lightning-blue-2.png");
+    background-position: center;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#gridThree{
+  margin-top: 200px;
+    display:grid;
+    grid-template-columns: 70px 70px 70px 70px 70px 70px 70px 70px 70px ;
+    grid-gap: 0px;
+    color: #444;
+  margin-left: 550px;
+}
+.bomb{
+  display: block;
+  background-image: url("../images/bomb.png");
+  background-position: center;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.machineGun{
+  display: block;
+  background-image: url("../images/mg42.png");
+  background-position: center;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.pistol {
+  display:block;
+  background-image: url("../images/colt_45.png");
+  background-position: center;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.tompson{
+  display:block;
+  background-image: url("../images/tompson.png");
+  background-position: center;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.knife{
+  display:block;
+  background-image: url("../images/knife_1.png");
+  background-position: center;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.buttons {
+    margin-top: 18px;
+    margin-left: 41px;
+}
+#switch {
+    /* margin-left: 450px; */
+    display: inline-block;
+    margin-right: 915px;
+    margin-top: 175px;
+    height: 50px;
+    width: 153px;
+}.button{
+  display: inline-block;
+  float: right;
+}
+.debug{
+  font-size: 10px;
+}
+#player1 {
+    margin-left: 355px;
+    float: left;
+}
+#player2 {
+    float: right;
+    margin-right: 242px;
+    margin-top: -594px;
+}
+.scoreboard{
+  border: 2px;
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+}
+.scores {
+    border: 8px;
+    border-style: double;
+    text-align: center;
+    width: 100px;
+    height: 200px;
+    font-family: monospace;
+    font-size: 27px;
+}
+p {
+    text-align: center;
+    margin-bottom: -180px;
+    margin-top: 87px;
+    font-size: 45px;
+    font-family: monospace;
+    font-weight: bold;
+}
+.myturn{
+  border-color: blue;
+}
+.all{
+  margin-left: -115px;
+}
