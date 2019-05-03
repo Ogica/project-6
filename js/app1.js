@@ -117,19 +117,19 @@ function checkBattleConditions(newx,newy){
   let lefty=newy-1;
   if ((validPosition(leftx,lefty)==true && map[leftx][lefty]==otherPlayer.id && map[newx][newy] != STONE) || (validPosition(rightx,righty)==true && map[rightx][righty]==otherPlayer.id && map[newx][newy] != STONE)
   || (validPosition(upx,upy)==true && map[upx][upy]==otherPlayer.id && map[newx][newy] != STONE) || (validPosition(downx,downy)==true && map[downx][downy]==otherPlayer.id && map[newx][newy] != STONE)){
-    document.removeEventListener("keydown",keyCode);
-    if (curentPlayer==player1){
-      document.getElementById('battledialog').innerHTML=" Player1 do you want to attack Player2 or do you want to defend yourself ?";
-    } else if (curentPlayer==player2){
-      document.getElementById('battledialog').innerHTML=" Player2 do you want to attack Player1 or do you want to defend yourself ?";
-    }
-    if (curentCount==MAX_MOVES){
-      $( "#dialog-rules" ).dialog("open");
-
-    } else if(curentCount<MAX_MOVES){
-      $( "#dialog-confirm" ).dialog("open");
-    }
+    return true;
   }
+  return false;
+}
+
+function initiateBattle() {
+  if (curentPlayer==player1){
+    document.getElementById('battledialog').innerHTML=" Player1 do you want to attack Player2 or do you want to defend yourself ?";
+  } else if (curentPlayer==player2){
+    document.getElementById('battledialog').innerHTML=" Player2 do you want to attack Player1 or do you want to defend yourself ?";
+  }
+  document.removeEventListener("keydown",keyCode);
+  $( "#dialog-confirm" ).dialog("open");
 }
 function move(direction){
   var oldx=curentPlayer.x;
@@ -148,50 +148,60 @@ function move(direction){
       map[newx][newy]=curentPlayer.id;
       curentPlayer.x=newx;
       curentPlayer.y=newy;
+
+    draw();
+    if (checkBattleConditions(newx,newy)===true) {
+      initiateBattle();
+    }
+    else {
       incrementCount();
-      draw();
-      checkBattleConditions(newx,newy);
-    }else if(map[newx][newy]== bomb.id || map[newx][newy]== machineGun.id || map[newx][newy]== pistol.id || map[newx][newy]== tompson.id || map[newx][newy]== knife.id){
-      if(map[newx][newy]== bomb.id){
-        let previousWeapon=curentPlayer.weapon;
-        curentPlayer.weapon=bomb;
-        map[newx][newy]=curentPlayer.id;
-        curentPlayer.x=newx;
-        curentPlayer.y=newy;
-        map[oldx][oldy]=previousWeapon.id;
-      } else if(map[newx][newy]== machineGun.id){
-        let previousWeapon=curentPlayer.weapon;
-        curentPlayer.weapon=machineGun;
-        map[newx][newy]=curentPlayer.id;
-        curentPlayer.x=newx;
-        curentPlayer.y=newy;
-        map[oldx][oldy]=previousWeapon.id;
-      } else if(map[newx][newy]== pistol.id){
-        let previousWeapon=curentPlayer.weapon;
-        curentPlayer.weapon=pistol;
-        map[newx][newy]=curentPlayer.id;
-        curentPlayer.x=newx;
-        curentPlayer.y=newy;
-        map[oldx][oldy]=previousWeapon.id;
-      } else if(map[newx][newy]== tompson.id){
-        let previousWeapon=curentPlayer.weapon;
-        curentPlayer.weapon=tompson;
-        map[newx][newy]=curentPlayer.id;
-        curentPlayer.x=newx;
-        curentPlayer.y=newy;
-        map[oldx][oldy]=previousWeapon.id;
-      }else if(map[newx][newy]== knife.id){
-        let previousWeapon=curentPlayer.weapon;
-        curentPlayer.weapon=knife;
-        map[newx][newy]=curentPlayer.id;
-        curentPlayer.x=newx;
-        curentPlayer.y=newy;
-        map[oldx][oldy]=previousWeapon.id;
-      }
+    }
+  }else if(map[newx][newy]== bomb.id || map[newx][newy]== machineGun.id || map[newx][newy]== pistol.id || map[newx][newy]== tompson.id || map[newx][newy]== knife.id){
+    if(map[newx][newy]== bomb.id){
+      let previousWeapon=curentPlayer.weapon;
+      curentPlayer.weapon=bomb;
+      map[newx][newy]=curentPlayer.id;
+      curentPlayer.x=newx;
+      curentPlayer.y=newy;
+      map[oldx][oldy]=previousWeapon.id;
+    } else if(map[newx][newy]== machineGun.id){
+      let previousWeapon=curentPlayer.weapon;
+      curentPlayer.weapon=machineGun;
+      map[newx][newy]=curentPlayer.id;
+      curentPlayer.x=newx;
+      curentPlayer.y=newy;
+      map[oldx][oldy]=previousWeapon.id;
+    } else if(map[newx][newy]== pistol.id){
+      let previousWeapon=curentPlayer.weapon;
+      curentPlayer.weapon=pistol;
+      map[newx][newy]=curentPlayer.id;
+      curentPlayer.x=newx;
+      curentPlayer.y=newy;
+      map[oldx][oldy]=previousWeapon.id;
+    } else if(map[newx][newy]== tompson.id){
+      let previousWeapon=curentPlayer.weapon;
+      curentPlayer.weapon=tompson;
+      map[newx][newy]=curentPlayer.id;
+      curentPlayer.x=newx;
+      curentPlayer.y=newy;
+      map[oldx][oldy]=previousWeapon.id;
+    }else if(map[newx][newy]== knife.id){
+      let previousWeapon=curentPlayer.weapon;
+      curentPlayer.weapon=knife;
+      map[newx][newy]=curentPlayer.id;
+      curentPlayer.x=newx;
+      curentPlayer.y=newy;
+      map[oldx][oldy]=previousWeapon.id;
+    }
+    draw();
+    if (checkBattleConditions(newx,newy)===true) {
+      initiateBattle();
+    }
+    else {
       incrementCount();
-      draw();
-      checkBattleConditions(newx,newy);
+    }
   }
+}
 }
 
 function changePlayer(){
@@ -211,7 +221,7 @@ function incrementCount(){
   if (curentCount>=MAX_MOVES){
     changePlayer();
     resetCount();
-  }
+    draw();
   }
 }
 
@@ -234,7 +244,6 @@ function generateMap(){
     }
     map.push(row);
   }
-
 }
 function generateStones(){
   var stone_counter=0;
@@ -295,7 +304,6 @@ function resetGame(){
   player2=new Player(3,knife);
   curentPlayer=player1;
   otherPlayer=player2;
-
 }
 function generateBoard(){
   generateMap();
@@ -311,8 +319,8 @@ function gameOver(){
   } else if (player2.health<=0){
     document.getElementById("gameoverdialog").innerHTML =" VICTORY FOR PLAYER 1 <br> Do you want to play again? " ;
   }
-    $( "#dialog-gameover" ).dialog("open")
-    }
+  $( "#dialog-gameover" ).dialog("open")
+}
 }
 function start(){
   resetGame();
